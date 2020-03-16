@@ -1,1 +1,11 @@
-
+.br-none{
+    border: none!important;
+}
+input[type="number"]::-webkit-outer-spin-button.number-clean, 
+input[type="number"]::-webkit-inner-spin-button.number-clean {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"].number-clean{
+    -moz-appearance: textfield;
+}
