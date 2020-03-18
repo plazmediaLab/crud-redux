@@ -1,87 +1,34 @@
 import React, { Fragment } from 'react';
+import styled from '@emotion/styled';
 
+const TheadContain = styled.thead`
+  background-color: var(--skyblue-dark-1);
+  color: var(--White);
+`;
 
-
-const Products = () => {
+const Products = ( props ) => {
   return (
     <Fragment>
-      <div className="t-interactive">
-        <table class="table ab-odd t-hover">
-          <thead>
+      <h2 className="txt-a-c txt-brand-3 txt-strong">{ props.title }</h2>
+
+      <div className="t-interactive vm-5">
+        <table class="table ab-odd">
+          <TheadContain className="">
             <th>#</th>
-            <th>
-              <div className="t-add-values">
-                <span>Table head 1</span>
-                <span className="tag-c tag-blue">+99</span>
-              </div>  
-            </th>
-            <th>Table head 2</th>
-            <th>Table head 3</th>
-          </thead>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </TheadContain>
+
           <tr>
             <td>1</td>
             <td>Celda 1</td>
             <td>Celda 2</td>
             <td>Celda 3</td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Celda 4</td>
-            <td>Celda 5</td>
-            <td>Celda 6</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Celda 7</td>
-            <td>Celda 8</td>
-            <td>Celda 9</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Celda 10</td>
-            <td>Celda 11</td>
-            <td>Celda 12</td>
-          </tr>
+
         </table>
       </div>
-
-      <table class="table ab-odd t-hover t-dark mt-5">
-        <tr>
-          <th>#</th>
-          <th>
-            <div className="t-add-values">
-              <span>Table head 1</span>
-              <span className="tag-c tag-blue">+99</span>
-            </div>  
-          </th>
-          <th>Table head 2</th>
-          <th>Table head 3</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Celda 1</td>
-          <td>Celda 2</td>
-          <td>Celda 3</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Celda 4</td>
-          <td>Celda 5</td>
-          <td>Celda 6</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Celda 7</td>
-          <td>Celda 8</td>
-          <td>Celda 9</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Celda 10</td>
-          <td>Celda 11</td>
-          <td>Celda 12</td>
-        </tr>
-      </table>
     </Fragment>
   );
 };

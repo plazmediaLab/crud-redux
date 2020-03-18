@@ -1,23 +1,39 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';// --> useDispatch [Ejecuta las acciones], useSelector [Accede al STATE]
 
-
+// REDUX actions
+import { createNewProductsAction } from '../redux/actions/productsActions';
 
 const NewProduct = () => {
 
-  // State
-  const [product, setProduct] = useState({
-    nameProduct: '',
-    namePrice: ''
-  });
+  // Dispatch
+  const dispatch = useDispatch();
 
-  // Handle Info
-  const handleInfo = (e) => {
-    setProduct({
-      ...product,
-      [e.target.name]: e.target.value
-    })
-  };
+  // Call to action
+  const addProduct = product => dispatch( createNewProductsAction( product ) );
 
+  // LOCAL STATE
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState(0);
+
+  // onSubmit FORM
+  const newProductSubmit = e => {
+    e.preventDefault();
+    
+    // Validate form
+    if(name.trim() === '' || price <= 0){
+      return;
+    }
+
+    // If there not was errors
+
+    // Create new product
+    addProduct({
+      name,
+      price
+    });
+
+  }
 
   return (
     <div className="col-row jc-center">
@@ -30,11 +46,11 @@ const NewProduct = () => {
           </div>
           <div className="card-body">
             <form
-              
+              onSubmit={newProductSubmit}
             >
               <div className="form-item">
                 <label 
-                  for="nameProduct"
+                  htmlFor="nameProduct"
                 >Product name</label>
                 <input 
                   type="text"
@@ -42,20 +58,22 @@ const NewProduct = () => {
                   name="nameProduct"
                   placeholder="Write the product name"
                   className="input-100 br-s"
-                  onChange={handleInfo}
+                  value={name}
+                  onChange={e => setName(e.target.value)}
                 />
               </div>
               <div className="form-item">
                 <label 
-                  for="namePrice"
+                  htmlFor="price"
                 >Product price</label>
                 <input 
                   type="number"
-                  id="namePrice"
-                  name="namePrice"
+                  id="price"
+                  name="price"
                   placeholder="Write the product price"
                   className="input-100 number-clean br-s"
-                  onChange={handleInfo}
+                  value={price}
+                  onChange={e => setPrice(Number( e.target.value ))}
                 />
               </div>
               
