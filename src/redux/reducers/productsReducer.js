@@ -2,7 +2,10 @@
 import {
   ADD_PRODUCT,
   ADD_PRODUCT_SUCCESSFULLY,
-  ADD_PRODUCT_ERROR
+  ADD_PRODUCT_ERROR,
+  GET_PRODUCTS,
+  GET_PRODUCTS_SUCCESSFULLY,
+  GET_PRODUCTS_ERROR,
 } from '../types/types';
 
 // Cada REDUCER tiene su propio STATE
@@ -16,6 +19,7 @@ const initialState = {
 export default function(state = initialState, action){
   /* Todo el REDUCER es un SWITCH */
   switch (action.type) {
+    case GET_PRODUCTS:
     case ADD_PRODUCT:
       return{
         ...state,
@@ -27,11 +31,19 @@ export default function(state = initialState, action){
         loading: false,
         products: [...state.products, action.payload]
       }
+    case GET_PRODUCTS_ERROR:
     case ADD_PRODUCT_ERROR:
       return{
         ...state,
         loading: false,
         error: action.payload
+      }
+    case GET_PRODUCTS_SUCCESSFULLY:
+      return{
+        ...state,
+        loading: false,
+        error: null,        
+        products: action.payload
       }
 
   

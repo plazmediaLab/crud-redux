@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';// --> useDispatch [Ejecuta las acciones], useSelector [Accede al STATE]
+import React, { useState, useRef } from 'react';
+// Redux
+import { useDispatch, useSelector } from 'react-redux';// --> useDispatch [Ejecuta las acciones], useSelector [Accede al STATE de redux]
 
 // REDUX actions
 import { createNewProductsAction } from '../redux/actions/productsActions';
 
-const NewProduct = () => {
+const NewProduct = ({ history }) => {
 
   // Dispatch
   const dispatch = useDispatch();
+  // Access the Store STATE
+  const loading = useSelector(state_arg => state_arg.products.loading);
+  const error = useSelector(state_arg => state_arg.products.error);
 
   // Call to action
   const addProduct = product => dispatch( createNewProductsAction( product ) );
@@ -15,6 +19,9 @@ const NewProduct = () => {
   // LOCAL STATE
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
+
+  // useRef
+  const inputName = useRef();
 
   // onSubmit FORM
   const newProductSubmit = e => {
@@ -26,6 +33,9 @@ const NewProduct = () => {
     }
 
     // If there not was errors
+    setName(''); // ------> Reset form
+    setPrice(0); // __/
+    inputName.current.focus(); // --> Focus to inputName
 
     // Create new product
     addProduct({
@@ -33,12 +43,18 @@ const NewProduct = () => {
       price
     });
 
+    // Redirect
+    history.push('/');
+
   }
 
   return (
     <div className="col-row jc-center">
 
       <div className="col-8">
+
+        { loading ? null : null }
+        { error ? <p className="msn msn-s-cancel br-m mb-2"><i className="a-info-warning"></i>&nbsp; There was an error</p> : null }
 
         <div className="card br-xl">
           <div className="card-head txt-a-c bg-1">
@@ -58,6 +74,7 @@ const NewProduct = () => {
                   name="nameProduct"
                   placeholder="Write the product name"
                   className="input-100 br-s"
+                  ref={inputName}
                   value={name}
                   onChange={e => setName(e.target.value)}
                 />

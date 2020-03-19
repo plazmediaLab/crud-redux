@@ -24,6 +24,31 @@
       "name": "Jugo de Fresa",
       "price": "200",
       "id": 5
+    },
+    {
+      "name": "Coffee drink",
+      "price": 50,
+      "id": 6
+    },
+    {
+      "name": "Cole sode",
+      "price": 15,
+      "id": 7
+    },
+    {
+      "name": "Butter bar",
+      "price": 63,
+      "id": 8
+    },
+    {
+      "name": "Pineapple juice",
+      "price": 72,
+      "id": 9
+    },
+    {
+      "name": "Tacos",
+      "price": 60,
+      "id": 10
     }
   ]
 }
