@@ -33,7 +33,7 @@ const EditProduct = () => {
             >
               <div className="form-item">
                 <label 
-                  for="newNameProduct"
+                  htmlFor="newNameProduct"
                 >Product name</label>
                 <input 
                   type="text"
@@ -46,7 +46,7 @@ const EditProduct = () => {
               </div>
               <div className="form-item">
                 <label 
-                  for="newPrice"
+                  htmlFor="newPrice"
                 >Product price</label>
                 <input 
                   type="number"

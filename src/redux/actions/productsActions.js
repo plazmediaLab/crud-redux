@@ -5,6 +5,9 @@ import {
   GET_PRODUCTS,
   GET_PRODUCTS_SUCCESSFULLY,
   GET_PRODUCTS_ERROR,
+  DELETE_PRODUCT_ID,
+  DELETE_PRODUCT_SUCCESSFULLY,
+  DELETE_PRODUCT_ERROR,
 } from '../types/types';
 // Axios
 import axiosClient from '../../config/axios';
@@ -12,7 +15,7 @@ import axiosClient from '../../config/axios';
 import Swal from 'sweetalert2';
 
 /*=================================================================================
-*	 Create our products ACTION
+*	 ACTION Create our products
 * --------------------------------------------------------------------------------*/
 export function createNewProductsAction(product_arg){
   return async ( dispatch ) => {
@@ -68,16 +71,16 @@ const addProcuctError = (state_arg) => ({
 })
 
 /*=================================================================================
-*	 Get products from database ACTION
+*	 ACTION Get products from database
 * --------------------------------------------------------------------------------*/
 export const getProductsAction = () => {
   return async (dispatch) => {
     dispatch( getProducts() );
 
     try {
-      
-      const response = await axiosClient.get('/products');
 
+      const response = await axiosClient.get('/products');
+  
       dispatch( getProductsSuccessfully(response.data) );
 
     } catch (error) {
@@ -102,3 +105,46 @@ const getProductsError = () => ({
   type: GET_PRODUCTS_ERROR,
   payload: true
 })
+
+/*=================================================================================
+*	 ACTION Delete one product by ID
+* --------------------------------------------------------------------------------*/
+export const deleteProductAction = (id_arg) => {
+  return async (dispatch) => {
+    dispatch( deleteProductID(id_arg) );
+    
+    try {
+      
+      await axiosClient.delete(`/products/${id_arg}`);
+      dispatch( deleteProductSeccessfully() )
+
+      // If is deleted the product
+      Swal.fire(
+        'Deleted!',
+        'Your file has been deleted successfully.',
+        'success'
+      )
+
+    } catch (error) {
+
+      dispatch( deleteProductError() )
+      console.log(error);
+
+    }
+
+  }
+}
+
+const deleteProductID = (id_arg) => ({
+  type: DELETE_PRODUCT_ID,
+  payload: id_arg
+});
+
+const deleteProductSeccessfully = () => ({
+  type: DELETE_PRODUCT_SUCCESSFULLY
+});
+
+const deleteProductError = () => ({
+  type: DELETE_PRODUCT_ERROR,
+  payload: true
+});

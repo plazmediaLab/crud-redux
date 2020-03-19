@@ -6,13 +6,17 @@ import {
   GET_PRODUCTS,
   GET_PRODUCTS_SUCCESSFULLY,
   GET_PRODUCTS_ERROR,
+  DELETE_PRODUCT_ID,
+  DELETE_PRODUCT_SUCCESSFULLY,
+  DELETE_PRODUCT_ERROR,
 } from '../types/types';
 
 // Cada REDUCER tiene su propio STATE
 const initialState = {
   products: [],
   error: null,
-  loading: false
+  loading: false,
+  deleteProduct: null
 }
 
 // El REDUCER siempre es una función 
@@ -33,6 +37,7 @@ export default function(state = initialState, action){
       }
     case GET_PRODUCTS_ERROR:
     case ADD_PRODUCT_ERROR:
+    case DELETE_PRODUCT_ERROR:
       return{
         ...state,
         loading: false,
@@ -44,6 +49,17 @@ export default function(state = initialState, action){
         loading: false,
         error: null,        
         products: action.payload
+      }
+    case DELETE_PRODUCT_ID:
+      return{
+        ...state,
+        deleteProduct: action.payload
+      }
+    case DELETE_PRODUCT_SUCCESSFULLY:
+      return{
+        ...state,
+        products: state.products.filter(product_arg => product_arg.id !== state.deleteProduct),
+        deleteProduct: null
       }
 
   

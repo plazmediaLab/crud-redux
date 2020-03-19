@@ -1,3 +1,6 @@
-
-
-
+.txt-decoration-none{
+    text-decoration: none;
+}
+.i-spin-l{
+    animation-duration: 2s!important;
+}

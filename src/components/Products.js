@@ -1,12 +1,14 @@
 import React, { Fragment, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 // Components
 import Product from './Product';
+import EmptyList from './EmptyList';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 
 // REDUX actions
-import { getProductsAction } from '../redux/actions/productsActions';
+import { getProductsAction, deleteProductAction } from '../redux/actions/productsActions';
 
 const TheadContain = styled.thead`
   background-color: var(--skyblue-dark-1);
@@ -19,7 +21,8 @@ const Products = ( props ) => {
   const dispatch = useDispatch();
   // Access the Store STATE
   const products = useSelector(state_arg => state_arg.products.products);
-  // console.log(products);
+  const error = useSelector(state_arg => state_arg.products.error);
+  const loading = useSelector(state_arg => state_arg.products.loading);
 
   // Local STATE
   let count = 0
@@ -36,6 +39,10 @@ const Products = ( props ) => {
 
   return (
     <Fragment>
+
+      {error ? <p className="msn msn-l-cancel txt-a-c mb-5"><i className="a-refresh"></i> There was an error to load the products, try refresh site</p> : null}
+      {loading ? <p className="msn msn-l-blue txt-a-c mb-5"><i className=" a-hourglass_empty i-spin-l"></i>&nbsp; Loading...</p> : null}
+
       <h2 className="txt-a-c txt-brand-3 txt-strong">{ props.title }</h2>
 
       <div className="t-interactive vm-5">
@@ -45,13 +52,25 @@ const Products = ( props ) => {
               <th>#</th>
               <th>Name</th>
               <th>Price</th>
-              <th>Actions</th>
+              <th>
+                <div className="jc-end">
+                  Actions
+                </div>
+              </th>
             </tr>
           </TheadContain>
           <tbody>
 
             {products.length === 0 ?(
-              'There are not products'
+
+              <tr>
+                <td colSpan="4">
+                  <Link to={'/products/new'} className="txt-decoration-none">
+                    <EmptyList />
+                  </Link>
+                </td>
+              </tr>
+
             ):(
               products.map(item => {
               
