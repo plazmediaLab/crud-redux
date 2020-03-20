@@ -1,22 +1,58 @@
-import React, { useState } from 'react';
-
-
+import React, { useState, useEffect } from 'react';
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+// REDUX actions
+import { editProductAction } from '../redux/actions/productsActions';
+// React router dom
+import { useHistory } from 'react-router-dom';
 
 const EditProduct = () => {
-  // State
+  
+  // Local STATE
   const [product, setProduct] = useState({
-    newNameProduct: '',
-    newPrice: ''
+    name: '',
+    price: 0
   });
 
-  // Handle Info
-  const handleInfo = (e) => {
+  // Dispatch
+  const dispatch = useDispatch();
+  // Access the Store STATE
+  const editProduct = useSelector(state_arg => state_arg.products.editProduct);
+
+  const history = useHistory()
+
+  // useEffect
+  useEffect(() => {
+
+    if(!editProduct){
+    
+      history.push('/');
+
+    }
+
+    // Set local state
+    setProduct(editProduct);
+
+  }, [editProduct]);
+
+  // Get the info from form
+  const getInfoFrom = e => {
     setProduct({
       ...product,
       [e.target.name]: e.target.value
     })
   };
 
+  // Destructuring
+  const { name, price } = product;
+
+  // onSubmit
+  const formSubmit = e => {
+    e.preventDefault();
+    
+    dispatch( editProductAction(product) );
+
+  }
 
   return (
     <div className="col-row jc-center">
@@ -29,7 +65,7 @@ const EditProduct = () => {
           </div>
           <div className="card-body">
             <form
-              
+              onSubmit={formSubmit}
             >
               <div className="form-item">
                 <label 
@@ -38,10 +74,11 @@ const EditProduct = () => {
                 <input 
                   type="text"
                   id="newNameProduct"
-                  name="newNameProduct"
+                  name="name"
                   placeholder="Write the product name"
                   className="input-100 br-s"
-                  onChange={handleInfo}
+                  value={name}
+                  onChange={getInfoFrom}
                 />
               </div>
               <div className="form-item">
@@ -51,10 +88,11 @@ const EditProduct = () => {
                 <input 
                   type="number"
                   id="newPrice"
-                  name="newPrice"
+                  name="price"
                   placeholder="Write the product price"
                   className="input-100 number-clean br-s"
-                  onChange={handleInfo}
+                  value={price}
+                  onChange={getInfoFrom}
                 />
               </div>
               

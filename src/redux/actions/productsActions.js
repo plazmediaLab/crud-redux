@@ -8,6 +8,10 @@ import {
   DELETE_PRODUCT_ID,
   DELETE_PRODUCT_SUCCESSFULLY,
   DELETE_PRODUCT_ERROR,
+  SET_EDIT,
+  START_EDIT_PRODUCT,
+  SET_EDIT_SUCCESSFULLY,
+  SET_EDIT_ERROR,
 } from '../types/types';
 // Axios
 import axiosClient from '../../config/axios';
@@ -148,3 +152,47 @@ const deleteProductError = () => ({
   type: DELETE_PRODUCT_ERROR,
   payload: true
 });
+
+/*=================================================================================
+*	 ACTION Set product fro edit
+* --------------------------------------------------------------------------------*/
+export const setEditProductAction = (product_arg) => {
+  return (dispatch) => {
+    dispatch( setProductEdit(product_arg) );
+  }
+}
+
+const setProductEdit = (product_arg) => ({
+  type: SET_EDIT,
+  payload: product_arg
+})
+
+/*=================================================================================
+*	 ACTION Edit regist in the API and State
+* --------------------------------------------------------------------------------*/
+export const editProductAction = product_arg => {
+  return async (dispatch) => {
+    dispatch( editProduct(product_arg) );
+
+    try {
+      
+      await axiosClient.put(`/products/${product_arg.id}`, product_arg);
+      
+      dispatch( productEditSuccessfully(product_arg) )
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+  }
+}
+
+const editProduct = () => ({
+  type: START_EDIT_PRODUCT,
+});
+
+const productEditSuccessfully = (product_arg) => ({
+  type: SET_EDIT_SUCCESSFULLY,
+  payload: product_arg
+})

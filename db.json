@@ -1,8 +1,8 @@
 {
   "products": [
     {
-      "name": "Rib Eye 800g",
-      "price": "200",
+      "name": "Rib Eye 1 kg",
+      "price": "500",
       "id": 4
     },
     {
@@ -12,13 +12,18 @@
     },
     {
       "name": "Butter bar",
-      "price": 63,
+      "price": "99",
       "id": 8
     },
     {
       "name": "Pineapple juice",
-      "price": 72,
+      "price": "72",
       "id": 9
+    },
+    {
+      "name": "Baby foot (Gerber)",
+      "price": 26,
+      "id": 10
     }
   ]
 }

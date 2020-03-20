@@ -9,6 +9,9 @@ import {
   DELETE_PRODUCT_ID,
   DELETE_PRODUCT_SUCCESSFULLY,
   DELETE_PRODUCT_ERROR,
+  SET_EDIT,
+  SET_EDIT_SUCCESSFULLY,
+  SET_EDIT_ERROR,
 } from '../types/types';
 
 // Cada REDUCER tiene su propio STATE
@@ -16,7 +19,8 @@ const initialState = {
   products: [],
   error: null,
   loading: false,
-  deleteProduct: null
+  deleteProduct: null,
+  editProduct: null
 }
 
 // El REDUCER siempre es una función 
@@ -38,6 +42,7 @@ export default function(state = initialState, action){
     case GET_PRODUCTS_ERROR:
     case ADD_PRODUCT_ERROR:
     case DELETE_PRODUCT_ERROR:
+    case SET_EDIT_ERROR:
       return{
         ...state,
         loading: false,
@@ -60,6 +65,19 @@ export default function(state = initialState, action){
         ...state,
         products: state.products.filter(product_arg => product_arg.id !== state.deleteProduct),
         deleteProduct: null
+      }
+    case SET_EDIT:
+      return{
+        ...state,
+        editProduct: action.payload
+      }
+    case SET_EDIT_SUCCESSFULLY:
+      return{
+        ...state,
+        editProduct: null,
+        products: state.products.map(item => 
+          item.id === action.payload.id ? item = action.payload : item
+        ),
       }
 
   

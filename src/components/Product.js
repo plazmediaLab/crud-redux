@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 // Redux
 import { useDispatch } from 'react-redux';
 // REDUX actions
-import { deleteProductAction } from '../redux/actions/productsActions';
+import { deleteProductAction, setEditProductAction } from '../redux/actions/productsActions';
 // Sweetalert2
 import Swal from 'sweetalert2';
 
@@ -14,6 +14,7 @@ const Product = ({ item, count }) => {
 
   // Dispatch
   const dispatch = useDispatch();
+  const history = useHistory();
 
   // Confirm if want deleted that product
   const confirmDeleteproduct = id_arg => {
@@ -38,6 +39,12 @@ const Product = ({ item, count }) => {
 
   }
 
+  // Function that redirects on a scheduled basis
+  const redurectEditProduct = product_arg => {
+    dispatch( setEditProductAction(item) );
+    history.push(`/products/edit/${product_arg.id}`);
+  };
+
 
   return (
     <tr>
@@ -46,9 +53,13 @@ const Product = ({ item, count }) => {
       <td>$ {new Intl.NumberFormat().format(price)}</td> 
       <td>
         <div className="jc-end">
-          <Link to={`/products/edit/${id}`} className="btn-s btn-l btn-l-acept br-s">
+          <button 
+            type="button"
+            className="btn-s btn-l btn-l-acept br-s"
+            onClick={() => redurectEditProduct(item)}
+          >
             <i className="a-createmode_editedit"></i>
-          </Link>
+          </button>
           <button 
             type="button"
             className="btn-s btn-l btn-l-cancel br-s ml-1"
