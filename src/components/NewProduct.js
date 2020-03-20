@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';// --> useDispatch [Ejecu
 
 // REDUX actions
 import { createNewProductsAction } from '../redux/actions/productsActions';
+import { showAlertAction, hideAlertAction } from '../redux/actions/alertActions';
 
 const NewProduct = ({ history }) => {
 
@@ -12,6 +13,7 @@ const NewProduct = ({ history }) => {
   // Access the Store STATE
   const loading = useSelector(state_arg => state_arg.products.loading);
   const error = useSelector(state_arg => state_arg.products.error);
+  const alert = useSelector(state_arg => state_arg.alert.alert);
 
   // Call to action
   const addProduct = product => dispatch( createNewProductsAction( product ) );
@@ -29,6 +31,17 @@ const NewProduct = ({ history }) => {
     
     // Validate form
     if(name.trim() === '' || price <= 0){
+
+      const alert = {
+        msn: 'The all fields are required',
+        classes: 'msn msn-l-cancel txt-a-c',
+        icon: 'a-info-warning'
+      };
+
+      dispatch( showAlertAction(alert) );
+
+      inputName.current.focus(); // --> Focus to inputName
+
       return;
     }
 
@@ -36,6 +49,7 @@ const NewProduct = ({ history }) => {
     setName(''); // ------> Reset form
     setPrice(0); // __/
     inputName.current.focus(); // --> Focus to inputName
+    dispatch( hideAlertAction() );
 
     // Create new product
     addProduct({
@@ -55,7 +69,7 @@ const NewProduct = ({ history }) => {
 
         { loading ? null : null }
         { error ? <p className="msn msn-s-cancel br-m mb-2"><i className="a-info-warning"></i>&nbsp; There was an error</p> : null }
-
+        { alert ? <p className={`mb-3 ${alert.classes}`}><i className={alert.icon}></i> {alert.msn} </p> : null }
         <div className="card br-xl">
           <div className="card-head txt-a-c bg-1">
             <h2>Add new product</h2>

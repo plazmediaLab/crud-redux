@@ -14,3 +14,6 @@ export const SET_EDIT = 'SET_EDIT';
 export const START_EDIT_PRODUCT = 'START_EDIT_PRODUCT';
 export const SET_EDIT_SUCCESSFULLY = 'SET_EDIT_SUCCESSFULLY';
 export const SET_EDIT_ERROR = 'SET_EDIT_ERROR';
+
+export const SHOW_ALERT = 'SHOW_ALERT';
+export const HIDE_ALERT = 'HIDE_ALERT';

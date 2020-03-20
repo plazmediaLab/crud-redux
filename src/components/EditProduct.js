@@ -33,6 +33,7 @@ const EditProduct = () => {
     // Set local state
     setProduct(editProduct);
 
+    // eslint-disable-next-line
   }, [editProduct]);
 
   // Get the info from form

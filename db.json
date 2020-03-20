@@ -1,29 +1,29 @@
 {
   "products": [
     {
-      "name": "Rib Eye 1 kg",
-      "price": "500",
+      "name": "Rib Eye 2 kg",
+      "price": "1200",
       "id": 4
     },
     {
-      "name": "Coffee drink",
-      "price": 50,
-      "id": 6
-    },
-    {
       "name": "Butter bar",
-      "price": "99",
+      "price": "100",
       "id": 8
     },
     {
       "name": "Pineapple juice",
-      "price": "72",
+      "price": "130",
       "id": 9
     },
     {
-      "name": "Baby foot (Gerber)",
-      "price": 26,
+      "name": "Rice 1k",
+      "price": 50,
       "id": 10
+    },
+    {
+      "name": "Tomatoes 2k",
+      "price": 99,
+      "id": 11
     }
   ]
 }
